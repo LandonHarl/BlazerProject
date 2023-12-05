@@ -1,0 +1,65 @@
+﻿@page "/PizzaDel"
+@rendermode InteractiveServer
+
+<h3>Pizza Delivery</h3>
+
+<Crusts pizza="pizza"></Crusts>
+<Toppings pizza="pizza"></Toppings>
+
+<h3>Select Tip Percentage:</h3>
+<label>
+    <input type="checkbox" @bind="pizza.PizzaTip.Twelve" />
+    12%
+</label>
+
+<label>
+    <input type="checkbox" @bind="pizza.PizzaTip.Fifteen" />
+    15%
+</label>
+
+<label>
+    <input type="checkbox" @bind="pizza.PizzaTip.Eighteen" />
+    18%
+</label>
+
+<p>Tip Check</p>
+<ul>
+    @if (pizza.PizzaTip.Twelve)
+    {
+        <li>12</li>
+    }
+    @if (pizza.PizzaTip.Fifteen)
+    {
+        <li>15</li>
+    }
+    @if (pizza.PizzaTip.Eighteen)
+    {
+        <li>18</li>
+    }
+</ul>
+
+<button @onclick="calcTotal">Calculate</button>
+
+<h3>Receipt:</h3>
+<p>Pizza Crust Cost: $@crustPrice</p>
+<p>Pizza Toppings Cost: $@topPrice</p>
+<p>Pizza Delivery Fee Cost: $2.00</p>
+<p>Pizza Tip: $@tip</p>
+<p>Final Total: $@total</p>
+
+@code {
+    double crustPrice;
+    double topPrice;
+    double tip;
+    double total;
+
+    private void calcTotal()
+    {
+        crustPrice = pizza.GetCrustPrice();
+        topPrice = pizza.GetTopPrice();
+        tip = pizza.GetTipPrice();
+        total = pizza.GetFullPrice();
+    }
+
+    Pizza pizza = new Pizza();
+}

@@ -1,0 +1,43 @@
+﻿@page "/pizzacrust"
+@rendermode InteractiveServer
+
+
+<h3>PizzaDelivery</h3>
+
+<label>
+	<input type="checkbox" @bind="pizza.PizzaCrust.PanCrust" />
+	Pan
+</label>
+
+<label>
+	<input type="checkbox" @bind="pizza.PizzaCrust.HandTossed" />
+	Hand Tossed
+</label>
+
+<label>
+	<input type="checkbox" @bind="pizza.PizzaCrust.ThinCrust" />
+	Thin
+</label>
+
+<p>Crust Check</p>
+<ul>
+	@if (pizza.PizzaCrust.PanCrust)
+	{
+		<li>Pan</li>
+	}
+	@if (pizza.PizzaCrust.HandTossed)
+	{
+		<li>Hand Tossed</li>
+	}
+	@if (pizza.PizzaCrust.ThinCrust)
+	{
+		<li>Thin</li>
+	}
+</ul>
+
+<p>Total Price: @pizza.GetCrustPrice()</p>
+
+@code {
+	[Parameter]
+	public Pizza pizza { get; set; }
+}
